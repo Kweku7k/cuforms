@@ -3,11 +3,11 @@ from email import message
 import re
 from flask import Flask,redirect,url_for,render_template,request, flash, session, jsonify, json
 from forms import *
-from flask_cors import CORS, cross_origin
+# from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 # from send_mail import send_mail
-from flask_mail import Mail, Message
+# from flask_mail import Mail, Message
 import urllib.request, urllib.parse
 import urllib
 from urllib.parse import urlencode
@@ -24,16 +24,16 @@ app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///test.db'
 # app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://isbiiqutsfeekn:c2058971f5bb424127a6b01d9ed3419b5599727a6f67d80136187b13465fe69a@ec2-34-200-94-86.compute-1.amazonaws.com:5432/d3ucdicb4224a8'
 
 
-api_v1_cors_config = {
-    "origins":["http://localhost:3000"],
-   " methods":['POST','OPTIONS']
-    # "Access-Control-Allow-Origin":'localhost:3000'
-}
+# api_v1_cors_config = {
+#     "origins":["http://localhost:3000"],
+#    " methods":['POST','OPTIONS']
+#     "Access-Control-Allow-Origin":'localhost:3000'
+# }
 
-cors = CORS(app, resources={
-    r"/addpost":api_v1_cors_config
-})
-app.config['CORS_HEADERS'] = 'Content-Type'
+# cors = CORS(app, resources={
+#     r"/addpost":api_v1_cors_config
+# })
+# app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 db = SQLAlchemy(app)
@@ -42,18 +42,18 @@ from models import *
 
 
 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'mr.adumatta@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Babebabe12321'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail= Mail(app)
+# app.config['MAIL_SERVER']='smtp.gmail.com'
+# app.config['MAIL_PORT'] = 465
+# app.config['MAIL_USERNAME'] = 'mr.adumatta@gmail.com'
+# app.config['MAIL_PASSWORD'] = 'Babebabe12321'
+# app.config['MAIL_USE_TLS'] = False
+# app.config['MAIL_USE_SSL'] = True
+# mail= Mail(app)
 
 
 #Functions
 def skill(percentage):
-    poor = range(0, 29)
+    poor = range(0, 29) 
     fair = range(30, 59)
     acceptable = range(60, 75)
     good = range(76, 92)
@@ -93,11 +93,11 @@ def findPercentage(score, total):
         percentage = 0
     return percentage
 
-def sendmail(body):
-    msg = Message('Results from TNP', sender = 'mr.adumatta@gmail.com', recipients = ['lecturesoft@gmail.com','nkba@live.com'])
-    msg.body = body
-    mail.send(msg)
-    return 'Sent'
+# def sendmail(body):
+#     msg = Message('Results from TNP', sender = 'mr.adumatta@gmail.com', recipients = ['lecturesoft@gmail.com','nkba@live.com'])
+#     msg.body = body
+#     mail.send(msg)
+#     return 'Sent'
 
 def sendtelegram(params):
     url = "https://api.telegram.org/bot1699472650:AAEso9qTbz1ODvKZMgRru5FhCEux_91bgK0/sendMessage?chat_id=-511058194&text=" + urllib.parse.quote(params)
@@ -130,7 +130,7 @@ def home():
 
 
 @app.route('/adduser',methods=['POST'])
-@cross_origin() 
+# @cross_origin() 
 def adduser():
     newUser = User(firstname=request.json['firstname'], lastname=request.json['lastname'], phone=request.json['phone'], email=request.json['email'], answers="None")
     print('From react')
