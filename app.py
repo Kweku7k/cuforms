@@ -416,7 +416,7 @@ def exitform():
         sendtelegram(formattedDict)
         session['qNumber'] = 1
         # dict = {}
-        return redirect('landing')
+        return redirect(url_for('allSurveys'))
 
     question = Question.query.get_or_404(session['qNumber'])
     if request.method == 'POST':
