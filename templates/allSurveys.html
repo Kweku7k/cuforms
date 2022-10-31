@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<section style="padding-top: 0;">
+        <div class="container">
+
+            <div class="infoBubble">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="infoBubbleHeading">Thank you for filling out our survey form!</h4>
+                        <h6 class="infoBubbleText">You can checkout other surveys we have posted or submit a request for a new </h6>
+                    </div>
+                    <div class="col-md-6">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="surveyRow">
+            <h4 class="surveyHeading">Student Surveys</h4>
+            <h6 class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h6>
+            <br/>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <a href='{{url_for("home")}}' style="text-decoration: none;">
+
+                    <div data-aos="fade-up" class="surveyCard">
+                        <div style="display: flex;">
+                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                            <h5 style="font-weight: bold;">Exit Form</h5>
+                        </div>
+                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <div data-aos="fade-up" class="surveyCard">
+                        <div style="display: flex;">
+                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                            <h5 style="font-weight: bold;">Exit Form</h5>
+                        </div>
+                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div data-aos="fade-up" class="surveyCard">
+                        <div style="display: flex;">
+                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                            <h5 style="font-weight: bold;">Exit Form</h5>
+                        </div>
+                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <hr style="margin-bottom: 10vh;">
+
+        </div>
+</section>
+
+{% endblock %}

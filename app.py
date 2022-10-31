@@ -1,6 +1,3 @@
-from crypt import methods
-from email import message
-import re
 from flask import Flask,redirect,url_for,render_template,request, flash, session, jsonify, json
 from forms import *
 # from flask_cors import CORS, cross_origin
@@ -21,6 +18,8 @@ app=Flask(__name__)
 app.config['SECRET_KEY'] = '5791628b21sb13ce0c676dfde280ba245'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///test.db'
+# mail= Mail(app)
+
 # app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://isbiiqutsfeekn:c2058971f5bb424127a6b01d9ed3419b5599727a6f67d80136187b13465fe69a@ec2-34-200-94-86.compute-1.amazonaws.com:5432/d3ucdicb4224a8'
 
 
@@ -42,12 +41,12 @@ from models import *
 
 
 
-# app.config['MAIL_SERVER']='smtp.gmail.com'
-# app.config['MAIL_PORT'] = 465
-# app.config['MAIL_USERNAME'] = 'mr.adumatta@gmail.com'
-# app.config['MAIL_PASSWORD'] = 'Babebabe12321'
-# app.config['MAIL_USE_TLS'] = False
-# app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'mr.adumatta@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Nimda@2021'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 # mail= Mail(app)
 
 
@@ -93,11 +92,11 @@ def findPercentage(score, total):
         percentage = 0
     return percentage
 
-# def sendmail(body):
-#     msg = Message('Results from TNP', sender = 'mr.adumatta@gmail.com', recipients = ['lecturesoft@gmail.com','nkba@live.com'])
-#     msg.body = body
-#     mail.send(msg)
-#     return 'Sent'
+def sendmail(body):
+    msg = Message('Results from TNP', sender = 'mr.adumatta@gmail.com', recipients = ['lecturesoft@gmail.com','nkba@live.com'])
+    msg.body = body
+    mail.send(msg)
+    return 'Sent'
 
 def sendtelegram(params):
     url = "https://api.telegram.org/bot1699472650:AAEso9qTbz1ODvKZMgRru5FhCEux_91bgK0/sendMessage?chat_id=-511058194&text=" + urllib.parse.quote(params)
@@ -106,7 +105,7 @@ def sendtelegram(params):
     return content
 
 def findTotal(array):
-    total = 0;
+    total = 0
     for i in range(len(array)):
         total = total + array[i]
         print("Function " + str(total))
@@ -121,12 +120,31 @@ def findTotal(array):
     return percentage
 
 @app.route('/', methods=['GET','POST'])
-def home():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        return redirect(url_for('forms'))
-    return render_template('index.html', form=form)
+def landing():
+    return render_template('landingPage.html')
 
+@app.route('/allSurveys')
+def allSurveys():
+    flash(f'Thanks for filling this bad bitch outtt!!', 'success')
+    return render_template('allSurveys.html')
+
+@app.route('/info', methods=['GET','POST'])
+def home():
+    session['qNumber'] = 1
+    form = RegistrationForms()
+    if form.validate_on_submit():
+        residence = form.residence.data
+        region = form.region.data
+        gender = form.gender.data
+        age = form.age.data
+        nationality = form.nationality.data
+        market = form.market.data
+        recommendation = form.recommendation.data
+        newRegistration = RegistrationForm( residence = residence, gender = gender, age = age, nationality = nationality, market = market, region = region, recommendation = recommendation)
+        db.session.add(newRegistration)
+        db.session.commit()
+        return redirect(url_for('exitform'))
+    return render_template('index.html', form=form)
 
 
 @app.route('/adduser',methods=['POST'])
@@ -199,8 +217,6 @@ def ussd():
   # Send the response back to the API
   return response
 
-
-
 # @app.route("/phone/<string:phonenumber>")
 # def phone(phonenumber):
 #     credentials = 'selasi@delaphonegh.com', '3AsX3Jz7u28NV6U'
@@ -272,7 +288,7 @@ def users():
 @app.route('/signup', methods=['POST','GET'])
 def signup():
 
-    return 
+    return "Signup"
 
 @app.route('/forms')
 def forms():
@@ -336,8 +352,17 @@ def newreport():
     # send_sms('0545977791', message) 
     return render_template('newreport.html')
 
+# @app.route("/sendMail")
+# def index():
+#    print("Initiating sending mail")
+#    msg = Message('Hello', sender = 'mr.adumatta@gmail.com', recipients = ['dev.lecturesoft@gmail.com'])
+#    msg.body = "Hello Flask message sent from Flask-Mail"
 
-@app.route('/forex')
+#    print(msg)
+#    mail.send(msg)
+#    return "Sent"
+
+@app.route('/forex')    
 def forex():
     url = "https://api.apilayer.com/currency_data/convert?to=GBP&from=USD&amount=5"
 
@@ -353,11 +378,63 @@ def forex():
     print(result)
     return result
 
+dict = {}
+
+@app.route('/restartForm')
+def restartForm():
+    session['qNumber'] = 1
+    dict = {}
+    return redirect('exitform')
+
+@app.route('/reverseForm')
+def reverseForm():
+    session['qNumber'] = int(session['qNumber']) - 1
+    return redirect('exitform')
+
+@app.route('/exitform', methods=['GET', 'POST'])
+def exitform():
+    if session['qNumber']:
+        print("Found a session")
+    else:
+        session['qNumber'] = 1
+
+    currentQuestion = session['qNumber']
+    print(session['qNumber'])
+    allQuestions = Question.query.all()
+    rows = len(allQuestions)
+    
+    currentQuestionPercentage = currentQuestion/rows
+    percentage = str(round(currentQuestionPercentage*100)) + '%' 
+    print(percentage)
+
+    if percentage == '100%':
+        # session['qNumber'] = 1
+        # sendSms to number
+        # send_sms("0545977791", "Thank you for filling the Graduate Form. Your clearance code is PRXX2345923. Please use this to ensure you are cleared successfully.")
+        print(dict)
+        formattedDict = str(dict).replace("},", " } \n")
+        sendtelegram(formattedDict)
+        session['qNumber'] = 1
+        # dict = {}
+        return redirect('landing')
+
+    question = Question.query.get_or_404(session['qNumber'])
+    if request.method == 'POST':
+        answer = request.form.get('answer')
+        dict[question.id] = {
+            "question":question.question,
+            "answer":answer
+        }
+        print(dict)
+        session['qNumber'] = currentQuestion + 1
+        print(dict)
+        formattedDict = str(dict).replace("},", " } \n")
+        print(formattedDict)
+    return render_template('designForm.html', question=question, currentQuestion=currentQuestion, allQuestions=allQuestions, percentage=percentage)
 
 @app.route('/report', methods=['GET','POST'])
 def report():
     # send_mail()
-
     forMail = []
     mailBody = ''
     questions = Question.query.all()
@@ -384,7 +461,7 @@ def report():
 
 
         mailBody += str(i.id) + " - " + i.question + " - " + str(point) + "\n"
-        # forMail.append(str(i.id) + " - " + i.question + "                                                    " )
+        # forMail.append(str(i.id) + " - " + i.question + "  " )
         if 3 <= point <= 4:
             print("Appending Strengths")
             if not i.component in strengths:

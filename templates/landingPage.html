@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../static/css/style.css">
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/091f1122a7.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <header>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#" style="font-weight: bold;">central.edu.gh</a>
+        <button class="navbar-toggler hidden-lg-up" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Students</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Staff</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Alumni</a>
+            </li>
+          </ul>
+          
+          <div style="width: fit-content;">
+              <button class="pill-button">Contact Us!</button>
+            </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main >
+    <div class="hero">
+
+
+      <div class="container">
+          <br/>
+      <div class="row" >    
+                <div class="col-md-6">
+                    <div class="hero2">
+                        <div>
+                            <h5 style="font-weight: 400;" data-aos="fade-up"> Lets keep the conversation going</h5>
+                            <h1 style="font-size: 50px; font-weight: 600;" data-aos="fade-up" data-aos-delay="1000">You have <span style="color: blue;">spoken</span>, <br/>  We have <span style="color: blue;">heard</span>.  </h1>
+                            <!-- <br/> -->
+                                <h6 class="text-muted" data-aos="fade-up" data-aos-delay="1500">Fill out a survey today and let your voice and your views be heard. In an attemt to better the ecosystem and the environment we need to know what you are feeling. </h6>
+
+
+                            <a href='{{url_for("home")}}'>
+                                <button class="pill-button mt-3" style="width: 50%;" data-aos="fade-up" data-aos-delay="2000" >Fill A survey!</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-in" data-aos-duration="2000" data-aos-delay="1000" class="col-md-6">
+                    <div style="width: 80%; height: 80vh; border-radius: 30%; display: flex; justify-content: space-around;">
+                        <img src="../static/img/black.jpg" width="100%" height="100%" style="object-fit: cover; overflow: hidden; border-radius: 5%;" alt="" srcset="">
+                    </div>
+                </div>
+                <!-- <div class="hero">
+                    <div style="text-align: center;">
+                        <h6>CENTRAL UNIVERSITY SURVEY PLATFORM</h6>
+                        <h1 class="heroText">Lets hear you voice out!</h1>
+                        <h6 class="text-muted mb-3">Join our mailing list to update when a survey is available</h6>
+                        <button class="button">Fill out a survey</button>
+                    </div>
+                </div> -->
+        </div>
+    </div>
+</div>
+
+
+    <section id="surveys">
+        <div class="container">
+            <div class="surveyRow">
+            <h4 class="surveyHeading">Student Surveys</h4>
+            <h6 class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h6>
+            <br/>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <a href='{{url_for("home")}}' style="text-decoration: none;">
+
+                    <div data-aos="fade-up" class="surveyCard">
+                        <div style="display: flex;">
+                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                            <h5 style="font-weight: bold;">Exit Form</h5>
+                        </div>
+                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <div data-aos="fade-up" class="surveyCard">
+                        <div style="display: flex;">
+                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                            <h5 style="font-weight: bold;">Exit Form</h5>
+                        </div>
+                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div data-aos="fade-up" class="surveyCard">
+                        <div style="display: flex;">
+                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                            <h5 style="font-weight: bold;">Exit Form</h5>
+                        </div>
+                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <hr style="margin-bottom: 10vh;">
+
+            <div class="surveyRow">
+                <h4 class="surveyHeading">Alumni Surveys</h4>
+                <h6 class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h6>
+                <br/>
+    
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="surveyCard" data-aos="fade-up">
+                            <div style="display: flex;">
+                                <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                <h5 style="font-weight: bold;">Exit Form</h5>
+                            </div>
+                            <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <div class="surveyCard" data-aos="fade-up">
+                            <div style="display: flex;">
+                                <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                <h5 style="font-weight: bold;">Exit Form</h5>
+                            </div>
+                            <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <div class="surveyCard" data-aos="fade-up">
+                            <div style="display: flex;">
+                                <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                <h5 style="font-weight: bold;">Exit Form</h5>
+                            </div>
+                            <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <hr style="margin-bottom: 10vh;">
+
+            <div class="surveyRow">
+                <h4 class="surveyHeading">Staff Surveys</h4>
+                <h6 class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h6>
+                <br/>
+    
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="surveyCard" data-aos="fade-up">
+                            <div style="display: flex;">
+                                <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                <h5 style="font-weight: bold;">Exit Form</h5>
+                            </div>
+                            <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <div class="surveyCard" data-aos="fade-up">
+                            <div style="display: flex;">
+                                <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                <h5 style="font-weight: bold;">Exit Form</h5>
+                            </div>
+                            <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <div class="surveyCard" data-aos="fade-up">
+                            <div style="display: flex;">
+                                <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                <h5 style="font-weight: bold;">Exit Form</h5>
+                            </div>
+                            <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+</main>
+
+  <footer>
+      <div class="container">
+    <div class="row">
+            <div class="col-md-4">
+                <h5>central.edu.gh</h5>
+                <hr>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis cum vero illo omnis inventore possimus praesentium eius, ducimus nesciunt dolorem ipsum consequuntur deleniti sequi non perferendis libero aliquam pariatur maiores!
+            </div>
+        </div>
+    </div>
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+<script>
+    AOS.init();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>

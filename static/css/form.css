@@ -1,0 +1,61 @@
+h6{
+    margin-bottom: 0;
+}
+
+.checkbox{
+    padding: 20px; border: 1px solid rgb(209, 209, 209); border-radius: 10px; margin:20px 0;
+}
+
+.qCard{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.pill-button{
+    background-color: #302cff;
+    border: none;
+    color: white;
+    border-radius:10px ;
+    padding: 16px 22px;
+    box-shadow: 0 2px 8px 0 rgba(48, 44, 255, 0.1);
+    text-align: center;
+    font-weight: bold;
+    transition: width 2s;
+    width: 100%;
+
+}
+
+.answerText{
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+.answerCard{
+    display: flex;
+    padding: 20px; 
+    border: 1px solid rgb(209, 209, 209); 
+    border-radius: 10px; 
+    margin:20px 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border: none;   
+}
+
+.alternate-pill-button{
+    background-color: white; 
+    color: #302cff; 
+    font-weight: 300; 
+    border: 1px solid blue;
+    border-radius:10px ;
+    padding: 16px 22px;
+    box-shadow: 0 2px 8px 0 rgba(48, 44, 255, 0.1);
+    text-align: center;
+    font-weight: bold;
+    transition: width 2s;
+    width: 90%;
+}
+
+.button-holder{
+    display: flex;
+    justify-content: space-between;
+}
