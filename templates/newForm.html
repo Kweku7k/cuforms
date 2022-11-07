@@ -14,7 +14,7 @@
 
 </head>
 
-<body >
+<body style="background-color: white;">
   <header>
     <!-- place navbar here -->
   </header>
@@ -25,7 +25,7 @@
             <a class="nav-item nav-link active" href='{{url_for("reverseForm")}}' aria-current="page">
               Back
               <span class="visually-hidden">(current)</span></a>
-            <a href='{{url_for("landing")}}' class="nav-item nav-link" >{{title}}</a>
+            <a class="nav-item nav-link" >Cu Exit Form</a>
             <a class="nav-item nav-link" href='{{url_for("restartForm")}}'>Restart!</a>
         </div>
     </nav> 
@@ -37,7 +37,8 @@
             <h4>The question of the day is as follows boldly here in this magnificient piece of work</h4> -->
 
             <!-- <h6 style="text-align: center;">{{currentQuestion}}/{{allQuestions|length}} </h6> -->
-      <form action="" method="post">
+      <form method="POST">
+        {{form.hidden_tag()}}
             <div class="progress" style="height: 5px;">
               <div class="progress-bar bg-primary" role="progressbar" style="width:{{percentage}};"
                   aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -47,33 +48,23 @@
         <br/>
         <div class="col-md-6" style="margin-top: auto; margin-bottom: auto;">
           <!-- Question -->
-          <h6 class="text-muted">Please access the area under the consideration by ticking the appropriate boxes.</h6>
+          <h6 class="text-muted">Please fill the form to proceed witht the form creation.</h6>
 
-          <h4>{{question.question}}</h4>
 
+          {{form.name( placeholder="Form Name", class="inputHead")}}
+          
+          {{form.description( placeholder="Form Description", class="inputDescription")}}
+          <!-- <input type="text" placeholder="Form Description" class="inputDescription"> -->
         </div>
         <div class="col-md-6">
-            <div >
-                <div class="answerCard" onclick="updateValue(event)">
-                  <input type="radio" name="answer" required value="0">
-                  <h6 class="answerText">Excellect</h6>
-                </div>
-                <div class="answerCard" onclick="updateValue(event)">
-                  <input type="radio" name="answer" value="1">
-                  <h6 class="answerText">Very Good</h6>
-                </div>
-                <div class="answerCard" onclick="updateValue(event)">
-                  <input type="radio" name="answer" value="2">
-                  <h6  class="answerText">Good</h6>
-                </div>
-                <div class="answerCard" onclick="updateValue(event)">
-                  <input type="radio" name="answer" value="3">
-                    <h6 class="answerText" >Average</h6>
-                </div>
-                <div class="answerCard" onclick="updateValue(event)">
-                  <input type="radio" name="answer" value="4">
-                  <h6 class="answerText">Poor</h6>
-                </div>
+            <div>
+              {% for people in consumers %}
+              <div class="answerCard" onclick="updateValue(event)">
+                <input type="radio" name="answer" required value="{{people}}">
+                <h6 class="answerText">{{people}}</h6>
+              </div>
+              {% endfor %}
+                
             </div>
           </div>
           <button class="pill-button" type="submit">Next</button>

@@ -19,6 +19,19 @@ class Questions(FlaskForm):
     skillGroup = SelectField('Skill Group', choices=[('--Skill Group--', '--Skill Group--'),('Learner Centricity', 'Learner Centricity'),('Teaching for Recall', 'Teaching for Recall'),('Teaching for Engagement', 'Teaching for Engagement')])
     submit = SubmitField('Submit')
 
+class NewForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    description = StringField('Name', validators=[DataRequired()])
+    consumer = StringField('consumer')
+    # consumer = RadioField('For', choices=[('None', 'None'),('Alumni', 'Alumni'), ('Student', 'Student'), ('Staff', 'Staff'), ('None', 'None')])
+    submit = SubmitField('Submit')
+
+class NewQuestion(FlaskForm):
+    question = StringField('Question', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+
 
 
 

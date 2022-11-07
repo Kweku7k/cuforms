@@ -26,9 +26,28 @@ h6{
 
 }
 
+.inputHead{
+    border: none;
+    font-size: 30px;
+    width: 100%;
+    font-weight: bold;
+    background-color: transparent;
+    border-bottom:1px solid grey ;
+}
+
+.inputDescription{
+    border: none;
+    font-size: 15px;
+    width: 100%;
+    margin-top: 10%;
+    background-color: transparent;
+    border-bottom:1px solid grey ;
+}
+
 .answerText{
     margin-bottom: 0;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .answerCard{
@@ -39,6 +58,8 @@ h6{
     margin:20px 0;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     border: none;   
+    cursor: pointer;
+
 }
 
 .alternate-pill-button{

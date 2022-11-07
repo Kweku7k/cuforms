@@ -50,48 +50,6 @@ app.config['MAIL_USE_SSL'] = True
 # mail= Mail(app)
 
 
-#Functions
-def skill(percentage):
-    poor = range(0, 29) 
-    fair = range(30, 59)
-    acceptable = range(60, 75)
-    good = range(76, 92)
-    outstanding = range(93,97)
-    exceptional = range(98,101)
-    yourskill = "not set"
-    for i in poor:
-        if percentage == i:
-            print(i)
-            yourskill = "Poor"
-    for i in fair:
-        if percentage == i:
-            print(i)
-            yourskill = "Fair"
-    for i in acceptable:
-        if percentage == i:
-            print(i)
-            yourskill = "Acceptable"
-    for i in good:
-        if percentage == i:
-            print(i)
-            yourskill = "Good"
-    for i in outstanding:
-        if percentage == i:
-            print(i)
-            yourskill = "Outstanding"
-    for i in exceptional:
-        if exceptional == i:
-            print(i)
-            yourskill = "Exceptional"
-    return yourskill
-
-def findPercentage(score, total):
-    try:
-        percentage = str(round((score / total) * 100)) + "%"
-    except ZeroDivisionError:
-        percentage = 0
-    return percentage
-
 def sendmail(body):
     msg = Message('Results from TNP', sender = 'mr.adumatta@gmail.com', recipients = ['lecturesoft@gmail.com','nkba@live.com'])
     msg.body = body
@@ -104,34 +62,23 @@ def sendtelegram(params):
     print(content)
     return content
 
-def findTotal(array):
-    total = 0
-    for i in range(len(array)):
-        total = total + array[i]
-        print("Function " + str(total))
-    # percentage
-    groupTotal = len(array) * 4
-    print("GROUP TOTAL")
-    print(groupTotal)
-    print(len(array))
-    print(total)
-    percentage = findPercentage(total, groupTotal)
-
-    return percentage
-
 @app.route('/', methods=['GET','POST'])
 def landing():
-    return render_template('landingPage.html')
+    form = SurveyForm.query.all()
+    print(form)
+    return render_template('landingPage.html', form=form)
 
 @app.route('/allSurveys')
 def allSurveys():
-    flash(f'Thanks for filling this bad bitch outtt!!', 'success')
-    return render_template('allSurveys.html')
+    # flash(f'Thanks for filling this out', 'success')
+    form = SurveyForm.query.all()
 
-@app.route('/info', methods=['GET','POST'])
-def home():
+    return render_template('allSurveys.html', form=form)
+
+@app.route('/info/<int:formId>', methods=['GET','POST'])
+def home(formId):
     session['qNumber'] = 1
-    form = RegistrationForms()
+    form = RegistrationForms()  
     if form.validate_on_submit():
         residence = form.residence.data
         region = form.region.data
@@ -143,9 +90,73 @@ def home():
         newRegistration = RegistrationForm( residence = residence, gender = gender, age = age, nationality = nationality, market = market, region = region, recommendation = recommendation)
         db.session.add(newRegistration)
         db.session.commit()
-        return redirect(url_for('exitform'))
+        return redirect(url_for('survey', formId = formId))
     return render_template('index.html', form=form)
 
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    return render_template('dashboard.html', title="Dashboard")
+
+
+currentUser = "1"
+@app.route('/myforms', methods=['GET', 'POST'])
+def myforms(): 
+    forms = SurveyForm.query.filter_by(ownerId = currentUser).order_by(SurveyForm.id.desc()).all()
+    return render_template('myforms.html', title="My Forms", forms = forms)
+
+@app.route('/admin/<string:formId>', methods=['GET', 'POST'])
+def adminform(formId):
+    # find form by slug
+    form = NewQuestion()
+    surveyForm = SurveyForm.query.get_or_404(formId)
+    formtitle = surveyForm.name
+    print(surveyForm)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            newSurveyQuestion = SurveyQuestion(family = formId, question = form.question.data)
+            try:
+                db.session.add(newSurveyQuestion)
+                db.session.commit()
+                return redirect(url_for('adminform', formId=formId))
+            except:
+                flash( f'There was an error uploading this question', "warning")
+    elif request.method == 'GET':
+        questions = SurveyQuestion.query.filter_by(family = formId).order_by(SurveyQuestion.id.desc()).all()
+    return render_template('adminformedit.html', questions=questions, formtitle=formtitle, form=form, survey=surveyForm  )
+
+@app.route('/adminresponses/<string:form>', methods=['GET', 'POST'])
+def adminresponses(form):
+    # find form by slug
+    surveyForm = SurveyForm.query.filter_by(slug = form).first()
+    formtitle = "survey"
+    questions = Question.query.all()
+    return render_template('adminform.html', questions = questions, formtitle=formtitle, title="Responses")
+
+@app.route('/newForm', methods=['GET', 'POST'])
+def newForm():
+    # create a new forms
+    form = NewForm()
+    consumers = ["None","Students", "Alumni", "Staff", "All"]
+    if request.method == 'POST':
+        print("POST REQUEST")
+        if form.validate_on_submit():
+            newform = SurveyForm(ownerId=currentUser, name = form.name.data,description = form.description.data, consumer = request.form.get("answer"))
+            try:
+                db.session.add(newform)
+                db.session.commit()
+            except:
+                print("Unable to create new form")
+            return redirect(url_for('adminform',formId=newform.id))
+        else:
+            print(form.errors)
+    else:
+        print(form.errors)
+    return render_template('newForm.html', form=form, consumers=consumers)
+
+@app.route('/admin/<int:form>/add>', methods=['GET', 'POST'])
+def addNewQuestion(form):
+    print(form)
+    return redirect(url_for('adminform', form=form))
 
 @app.route('/adduser',methods=['POST'])
 # @cross_origin() 
@@ -155,24 +166,8 @@ def adduser():
     print(newUser)
     return render_template('adminpage.html')
 
-
-
-
-# @app.route("/ussd")
-# def ussd():
-#     conn = http.client.HTTPSConnection("{{USSDBaseURL}}{{endPoint}}")
-#     payload = "{\n    \"USERID\": \"NALOTest\",\n    \"MSISDN\": \"233XXXXXXXXX\",\n    \"USERDATA\": \"3\",\n    \"MSGTYPE\": false,\n    \"NETWORK\": \"MTN\"\n}"
-#     headers = {}
-#     conn.request("POST", "/", payload, headers)
-#     res = conn.getresponse()
-#     data = res.read()
-#     print(data.decode("utf-8"))
-#     return 'done'
-
-
 @app.route("/ussd", methods = ['GET','POST'])
 def ussd():
-  
   session_id   = request.values.get("sessionId", None)
   serviceCode  = request.values.get("serviceCode", None)
   phone_number = request.values.get("phoneNumber", None)
@@ -378,59 +373,81 @@ def forex():
     print(result)
     return result
 
+@app.route('/myresponses', methods=['GET', 'POST'])
+def myresponses():
+    return render_template('myresponses.html', title = "Responses")
+
+
+@app.route('/myresponse', methods=['GET', 'POST'])
+def myresponse():
+    return render_template('myresponse.html')
+
+
 dict = {}
+
+
 
 @app.route('/restartForm')
 def restartForm():
     session['qNumber'] = 1
     dict = {}
-    return redirect('exitform')
+    return redirect('survey')
 
 @app.route('/reverseForm')
 def reverseForm():
     session['qNumber'] = int(session['qNumber']) - 1
-    return redirect('exitform')
+    return redirect('survey')
 
-@app.route('/exitform', methods=['GET', 'POST'])
-def exitform():
+@app.route('/survey/<int:formId>', methods=['GET', 'POST'])
+def survey(formId):
+    formId = formId
     if session['qNumber']:
         print("Found a session")
     else:
         session['qNumber'] = 1
 
-    currentQuestion = session['qNumber']
-    print(session['qNumber'])
-    allQuestions = Question.query.all()
+    allQuestions = SurveyQuestion.query.filter_by(family = formId).order_by(SurveyQuestion.id.asc()).all()
+
     rows = len(allQuestions)
+    print(rows)
     
+    currentQuestion = session['qNumber']
     currentQuestionPercentage = currentQuestion/rows
     percentage = str(round(currentQuestionPercentage*100)) + '%' 
     print(percentage)
-
-    if percentage == '100%':
-        # session['qNumber'] = 1
-        # sendSms to number
-        # send_sms("0545977791", "Thank you for filling the Graduate Form. Your clearance code is PRXX2345923. Please use this to ensure you are cleared successfully.")
-        print(dict)
-        formattedDict = str(dict).replace("},", " } \n")
-        sendtelegram(formattedDict)
-        session['qNumber'] = 1
-        # dict = {}
-        return redirect(url_for('allSurveys'))
-
-    question = Question.query.get_or_404(session['qNumber'])
+    
     if request.method == 'POST':
-        answer = request.form.get('answer')
-        dict[question.id] = {
-            "question":question.question,
-            "answer":answer
-        }
-        print(dict)
-        session['qNumber'] = currentQuestion + 1
-        print(dict)
-        formattedDict = str(dict).replace("},", " } \n")
-        print(formattedDict)
-    return render_template('designForm.html', question=question, currentQuestion=currentQuestion, allQuestions=allQuestions, percentage=percentage)
+            # If you are not done  
+            question = allQuestions[(session['qNumber'])]
+            print(question)
+            answer = request.form.get('answer')
+            dict[question.id] = {
+                "question":question.question,
+                "answer":answer
+            }
+            print(dict)
+            session['qNumber'] = currentQuestion + 1
+            formattedDict = str(dict).replace("},", " } \n")
+            print(formattedDict)
+            return redirect(url_for('survey', formId = formId))
+
+    elif request.method == 'GET':
+        if percentage == '100%':
+            # Send the form to admin!
+            print(dict)
+            print("BE LIKE !))%?")
+            formattedDict = str(dict).replace("},", " } \n")
+            sendtelegram(formattedDict)
+            session['qNumber'] = 1
+            return redirect(url_for('allSurveys'))
+
+        print(session['qNumber'])
+        surveyForm = SurveyForm.query.get_or_404(formId)
+
+        question = allQuestions[(session['qNumber'])]
+        print(question)
+ 
+    return render_template('designForm.html', question=question, currentQuestion=currentQuestion, allQuestions=allQuestions, percentage=percentage, title=surveyForm.name)
 
 @app.route('/report', methods=['GET','POST'])
 def report():
@@ -533,5 +550,5 @@ def report():
     fair=(str(fair).replace( '[' , '').replace( ']' , '').replace( "'" , '')), 
     learnerCentricityTotal=learnerCentricityTotal, teachingForRecallTotal=teachingForRecallTotal, teachingForEngagementTotal=teachingForEngagementTotal)
 
-if __name__ == '__main__':  
+if __name__ == '__main__':    
     app.run(host='0.0.0.0', port=5000,debug=True)

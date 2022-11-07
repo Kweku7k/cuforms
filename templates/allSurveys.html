@@ -18,46 +18,98 @@
                 </div>
             </div>
 
-            <div class="surveyRow">
-            <h4 class="surveyHeading">Student Surveys</h4>
-            <h6 class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h6>
-            <br/>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <a href='{{url_for("home")}}' style="text-decoration: none;">
 
-                    <div data-aos="fade-up" class="surveyCard">
-                        <div style="display: flex;">
-                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
-                            <h5 style="font-weight: bold;">Exit Form</h5>
-                        </div>
-                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+            <section id="surveys">
+                <div class="container">
+                    <div class="surveyRow">
+                    <h4 class="surveyHeading">Student Surveys</h4>
+                    <h6 class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h6>
+                    <br/>
+        
+                    <div class="row">
+                        
+                        {% for form in form %}
+                            {% if form.consumer == "Students" %}
+                            <div class="col-md-4">
+                                <a href='{{url_for("home", formId = form.id)}}' style="text-decoration: none;">
+        
+                                <div data-aos="fade-up" class="surveyCard">
+                                    <div style="display: flex;">
+                                        <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                        <h5 style="font-weight: bold;">{{form.name}}</h5>
+                                    </div>
+                                    <h6 class="text-muted">{{form.description}}</h6>
+                                </div>
+                                </a>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                    </a>
-                </div>
-
-                <div class="col-md-4">
-                    <div data-aos="fade-up" class="surveyCard">
-                        <div style="display: flex;">
-                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
-                            <h5 style="font-weight: bold;">Exit Form</h5>
-                        </div>
-                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
                     </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div data-aos="fade-up" class="surveyCard">
-                        <div style="display: flex;">
-                            <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
-                            <h5 style="font-weight: bold;">Exit Form</h5>
+                    <hr style="margin-bottom: 10vh;">
+        
+                    <div class="surveyRow">
+                        <h4 class="surveyHeading">Alumni Surveys</h4>
+                        <h6 class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h6>
+                        <br/>
+            
+                        <div class="row">
+        
+                           
+                            {% for form in form %}
+                            {% if form.consumer == "Alumni" %}
+                            
+                            <div class="col-md-4">
+                                <a href='{{url_for("home", formId = form.id)}}' style="text-decoration: none;">
+        
+                                <div data-aos="fade-up" class="surveyCard">
+                                    <div style="display: flex;">
+                                        <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                        <h5 style="font-weight: bold;">{{form.name}}</h5>
+                                    </div>
+                                    <h6 class="text-muted">{{form.description}}</h6>
+                                </div>
+                                </a>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+        
                         </div>
-                        <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
-                    </div>
+                        </div>
+        
+                        <hr style="margin-bottom: 10vh;">
+        
+                    <div class="surveyRow">
+                        <h4 class="surveyHeading">Staff Surveys</h4>
+                        <h6 class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h6>
+                        <br/>
+            
+                        <div class="row">
+        
+                            {% for form in form %}
+                            {% if form.consumer == "Staff" %}
+                            
+                            <div class="col-md-4">
+                                <a href='{{url_for("home", formId = form.id)}}' style="text-decoration: none;">
+        
+                                <div data-aos="fade-up" class="surveyCard">
+                                    <div style="display: flex;">
+                                        <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div>
+                                        <h5 style="font-weight: bold;">{{form.name}}</h5>
+                                    </div>
+                                    <h6 class="text-muted">{{form.description}}</h6>
+                                </div>
+                                </a>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+        
+            
+                        </div>
+                        </div>
                 </div>
-            </div>
-            </div>
+            </section>
 
             <hr style="margin-bottom: 10vh;">
 

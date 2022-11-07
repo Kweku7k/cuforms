@@ -1,0 +1,51 @@
+{% extends "dashlayout.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}">
+
+{% endblock %}
+
+{% block body %}
+
+
+<h4>{{formtitle}}</h4>
+<h6>{{survey.description}}</h6>
+<br>
+<div class="row">
+
+  <form action="" method="post">
+    {{form.hidden_tag()}}
+    <div class="flexrow mb-3">
+      {{form.question(class="newInputForm", placeholder="Add a new question")}}
+      <!-- <input class="newInputForm" type="text" value="" placeholder="New Question"> -->
+      {{form.submit (class="button", style="margin-left: 2vw;")}}
+    </div>
+  </form>
+
+  
+  {% for question in questions %}
+  <div class="newInputForm mb-3">
+    <div class="flexrow">
+      <h6 class="text-muted">Question {{loop.index}}</h6>
+      <h6 style="color: #2f9921;">update</h6>
+    </div>
+      <input class="inputValue" type="text" value="{{question.question}}">
+      <div class="mb-3">
+        <!-- <label for="" class="form-label">City</label> -->
+        <!-- <select class="form-select form-select-lg" style="font-size: 10px;" name="" id="">
+          <option selected>Select one</option>
+          <option value="">Survey 1-5</option>
+          <option value="">Istanbul</option>
+          <option value="">Jakarta</option>
+        </select> -->
+      </div>
+      <!-- <div class="flexrow">
+        <h6 style="color: #992621;">delete</h6>
+      </div> -->
+    </div>   
+    <!-- <hr>  -->
+  {% endfor %}
+
+      
+</div>
+{% endblock %}

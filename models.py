@@ -31,3 +31,36 @@ class RegistrationForm(db.Model):
     answers = db.Column(db.String())
     def __repr__(self):
         return f"User('{self.lastname}', '{self.email}', '{self.phone}')"
+
+class SurveyForm(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    startDate = db.Column(db.String(), default=None)
+    endDate = db.Column(db.String(), default=None)
+    ownerId = db.Column(db.String())
+    status = db.Column(db.String())
+    consumer = db.Column(db.String())
+    slug = db.Column(db.String())
+    family = db.Column(db.String())
+    description = db.Column(db.String())
+    type = db.Column(db.String())
+    def __repr__(self):
+        return f"Form('{self.name}', '{self.ownerId}')"
+
+class SurveyQuestion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String())
+    family = db.Column(db.String())
+    section = db.Column(db.String())
+    type = db.Column(db.String())
+    def __repr__(self):
+        return f"Question('{self.question}', '{self.family}', '{self.section}')"
+
+class Section(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    form = db.Column(db.String())
+    questions = db.Column(db.String())
+
+    def __repr__(self):
+        return f"User('{self.lastname}', '{self.email}', '{self.phone}')"

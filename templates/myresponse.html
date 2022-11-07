@@ -1,0 +1,26 @@
+{% extends "dashlayout.html" %}
+
+{% block body %}
+
+
+<h4>All Your responses</h4>
+
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <a href='{{url_for("adminform", form="form")}}' style="text-decoration: none; color: black;">
+
+        <div data-aos="fade-up" class="dashboard-item" style="background-color: white;">
+            <div style="display: flex;">
+                <!-- <div class="surveyImage"><i class="fa-solid fa-anchor"></i></div> -->
+                <h6>🎹</h6>
+                <h6 style="font-weight: bold; color: black;">Exit Form</h6>
+            </div>
+            <h6 class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat recusandae quasi architecto natus? Blanditiis optio.</h6>
+            <h6 class="dashboard-item-text">12 responses</h6>
+        </div>
+        </a>
+    </div>
+    </div>
+
+{% endblock %}

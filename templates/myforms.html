@@ -1,0 +1,35 @@
+{% extends "dashlayout.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+
+<div class="flexrow">
+    <h4>All Forms</h4>
+    <a href="{{url_for("newForm")}}">
+        <button class="button">Add a new form.</button>
+    </a>
+</div>
+<br>
+<div class="row">
+    {% for form in forms %}
+    <div class="col-md-4">
+        <a href='{{url_for("adminform", formId=form.id)}}' style="text-decoration: none; color: black;">
+
+        <div data-aos="fade-up" class="dashboard-item" style="background-color: white;">
+            <div style="display: flex;">
+                <h6>✅</h6>
+                <h6 style="font-weight: bold; color: black;">{{form.name}}</h6>
+            </div>
+            <h6 class="text-muted">{{form.description}}</h6>
+            <h6 class="dashboard-item-text">{{form.consumer}}</h6>
+        </div>
+        </a>
+    </div>
+    {% endfor %}
+
+    </div>
+{% endblock %}

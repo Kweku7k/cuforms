@@ -1,0 +1,38 @@
+{% extends "dashlayout.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}">
+
+{% endblock %}
+
+{% block body %}
+
+<h4>{{formtitle}}</h4>
+<h6 class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum inventore tempora numquam voluptates nemo libero veritatis et. Vel doloribus magni molestiae, nam ipsa similique adipisci, ab repellat tempore optio debitis.</h6>
+
+<br>
+<div class="row">
+  {% for question in questions %}
+  <div class=" mb-3">
+      <!-- <input class="newInputForm" value="asdf" name="indexnumber"> -->
+      <div class="newInputForm">
+          <h6>Question {{question.id}}</h6>
+          <h6>{{question.question}}</h6>
+          <div class="flexrow">
+            <h6 class="text-muted">30 - Excellect</h6>
+            <h6 class="text-muted">30 - Very Good</h6>
+            <h6 class="text-muted">30 - Good</h6>
+            <h6 class="text-muted">30 - Average</h6>
+            <h6 class="text-muted">30 - Poor</h6>
+          </div>
+          
+          </div>
+    </div>
+    
+    <!-- <div class=" mb-3"> -->
+    <!-- </div> -->
+  {% endfor %}
+
+      
+</div>
+{% endblock %}

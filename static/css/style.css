@@ -5,11 +5,32 @@ body{
 
 .code{
     background-color: rgba(255, 0, 0, 0.453);
-    color: red;
+    color: #992621;
     margin: auto;
     padding: 20px;
     font-weight: bold;
     border-radius: 20px;
+}
+.inputValue{
+    border: none;
+    width: 100%;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.inputValue:focus-visible{
+    border: none;
+    width: 100%;
+}
+
+.newInputForm{
+    /* border: none; */
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px 0px;
+    border: none;
+    background-color: white;
 }
 
 .loginClass{
@@ -40,7 +61,7 @@ section{
     width: 100vw;
     padding: 20px;
     text-align: center ;
-    background-color: red;
+    background-color: #992621;
 }
 
 .header{
@@ -52,7 +73,7 @@ section{
     width: 30vw;
     height: 100vh;
     position: relative;
-    background-color: red;
+    background-color: #992621;
     padding:10vh;
     
 } */
@@ -85,7 +106,7 @@ section{
 }
 .button{
     border: none;
-    background-color: red;
+    background-color: #992621;
     padding: 10px 30px;
     color: white;
     border-radius: 15px;
@@ -129,7 +150,7 @@ section{
 }
 
 .smallheader{
-    color: red; 
+    color: #992621; 
     font-weight: 500; 
     font-size: small;
 }
@@ -147,7 +168,7 @@ section{
 }
 
 .smallheader-small{
-    color: red; 
+    color: #992621; 
     font-weight: 200; 
     cursor: pointer;
     /* font-size: small; */
@@ -229,7 +250,7 @@ border-radius:10px;
     border-radius: 50%;
     width: 200px;
     height: 200px;
-    border: 20px solid red;
+    border: 20px solid #992621;
     text-align: center;
     font-weight: bold;
     font-size: 50px;
