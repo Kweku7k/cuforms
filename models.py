@@ -44,6 +44,7 @@ class SurveyForm(db.Model):
     family = db.Column(db.String())
     description = db.Column(db.String())
     type = db.Column(db.String())
+    
     def __repr__(self):
         return f"Form('{self.name}', '{self.ownerId}')"
 
@@ -53,6 +54,7 @@ class SurveyQuestion(db.Model):
     family = db.Column(db.String())
     section = db.Column(db.String())
     type = db.Column(db.String())
+
     def __repr__(self):
         return f"Question('{self.question}', '{self.family}', '{self.section}')"
 
