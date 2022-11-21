@@ -187,7 +187,7 @@ def newForm():
         print(form.errors)
     return render_template('newForm.html', form=form, consumers=consumers)
 
-@app.route('/admin/<int:form>/add>', methods=['GET', 'POST'])
+@app.route('/admin/add/<int:form>', methods=['GET', 'POST'])
 def addNewQuestion(form):
     print(form)
     return redirect(url_for('adminform', form=form))
@@ -598,4 +598,5 @@ def report():
     learnerCentricityTotal=learnerCentricityTotal, teachingForRecallTotal=teachingForRecallTotal, teachingForEngagementTotal=teachingForEngagementTotal)
 
 if __name__ == '__main__':    
-    app.run(host='0.0.0.0', port=5000,debug=True)
+    app.run(host='0.0.0.0', port
+    =5000,debug=True)
