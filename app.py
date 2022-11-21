@@ -96,7 +96,8 @@ def home(formId):
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    return render_template('dashboard.html', title="Dashboard")
+    forms = SurveyForm.query.filter_by(ownerId = '1').count()
+    return render_template('dashboard.html', title="Dashboard", forms = forms)
 
 
 currentUser = "1"
@@ -104,6 +105,34 @@ currentUser = "1"
 def myforms(): 
     forms = SurveyForm.query.filter_by(ownerId = currentUser).order_by(SurveyForm.id.desc()).all()
     return render_template('myforms.html', title="My Forms", forms = forms)
+
+@app.route('/update/<intId>', methods=['GET', 'POST'])
+def updateQuestion(id):
+    form = NewQuestion()
+    question = SurveyQuestion.query.get_or_404(id)
+    print(question)
+    if form.validate_on_submit:
+       question = form.question.data
+       db.session.commit()
+       flash(f'Question has been updated.')
+    return redirect(url_for('adminform', formId=question.family))
+
+@app.route('/delete/<int:question>', methods=['GET', 'DELETE'])
+def deleteQuestion(question):
+    question = SurveyQuestion.query.get_or_404(question)
+    db.session.delete(question)
+    db.session.commit()
+    print(question)
+    return redirect(url_for('adminform', formId=question.family))
+
+
+@app.route('/deleteForm/<int:formId>', methods=['GET', 'DELETE'])
+def deleteForm(formId):
+    form = SurveyForm.query.get_or_404(formId)
+    db.session.delete(form)
+    db.session.commit()
+    print(form)
+    return redirect(url_for('myforms'))
 
 @app.route('/admin/<string:formId>', methods=['GET', 'POST'])
 def adminform(formId):
@@ -113,6 +142,7 @@ def adminform(formId):
     formtitle = surveyForm.name
     print(surveyForm)
     if request.method == 'POST':
+        questions = SurveyQuestion.query.filter_by(family = formId).order_by(SurveyQuestion.id.desc()).all()
         if form.validate_on_submit():
             newSurveyQuestion = SurveyQuestion(family = formId, question = form.question.data)
             try:
@@ -120,17 +150,20 @@ def adminform(formId):
                 db.session.commit()
                 return redirect(url_for('adminform', formId=formId))
             except:
+                print(form.errors)
                 flash( f'There was an error uploading this question', "warning")
+        else:
+            print(form.errors)
     elif request.method == 'GET':
         questions = SurveyQuestion.query.filter_by(family = formId).order_by(SurveyQuestion.id.desc()).all()
-    return render_template('adminformedit.html', questions=questions, formtitle=formtitle, form=form, survey=surveyForm  )
+    return render_template('adminformedit.html', questions=questions, formtitle=formtitle, form=form, survey=surveyForm, title="My Forms")
 
-@app.route('/adminresponses/<string:form>', methods=['GET', 'POST'])
-def adminresponses(form):
-    # find form by slug
-    surveyForm = SurveyForm.query.filter_by(slug = form).first()
-    formtitle = "survey"
-    questions = Question.query.all()
+@app.route('/adminresponses/<int:id>', methods=['GET', 'POST'])
+def adminresponses(id):
+    surveyForm = SurveyForm.query.get_or_404(id)
+    formtitle = surveyForm.name
+    questions = SurveyQuestion.query.filter_by(family = id).all()
+    print(questions)
     return render_template('adminform.html', questions = questions, formtitle=formtitle, title="Responses")
 
 @app.route('/newForm', methods=['GET', 'POST'])
@@ -376,11 +409,17 @@ def forex():
 
 @app.route('/myresponses', methods=['GET', 'POST'])
 def myresponses():
-    return render_template('myresponses.html', title = "Responses")
+    responses = Responses.query.order_by(Responses.id.desc()).all()
+    surveys = SurveyForm.query.all()
+    return render_template('myresponses.html', title = "Responses", responses = responses, surveys = surveys)
 
 
-@app.route('/myresponse', methods=['GET', 'POST'])
-def myresponse():
+@app.route('/myresponse/<int:id>', methods=['GET', 'POST'])
+def myresponse(id):
+    response = Responses.query.get_or_404(id)
+    # print(json.loads(response.response))
+    print(response.response)
+
     return render_template('myresponse.html')
 
 
@@ -388,16 +427,16 @@ dict = {}
 
 
 
-@app.route('/restartForm')
-def restartForm():
+@app.route('/restartForm/<int:formId>')
+def restartForm(formId):
     session['qNumber'] = 1
     dict = {}
-    return redirect('survey')
+    return redirect(url_for('survey', formId=formId))
 
-@app.route('/reverseForm')
-def reverseForm():
+@app.route('/reverseForm/<int:formId>')
+def reverseForm(formId):
     session['qNumber'] = int(session['qNumber']) - 1
-    return redirect('survey')
+    return redirect(url_for('survey', formId=formId))
 
 @app.route('/survey/<int:formId>', methods=['GET', 'POST'])
 def survey(formId):
@@ -416,6 +455,9 @@ def survey(formId):
     currentQuestionPercentage = currentQuestion/rows
     percentage = str(round(currentQuestionPercentage*100)) + '%' 
     print(percentage)
+
+    surveyForm = SurveyForm.query.get_or_404(formId)
+
     
     if request.method == 'POST':
             # If you are not done  
@@ -440,15 +482,19 @@ def survey(formId):
             formattedDict = str(dict).replace("},", " } \n")
             sendtelegram(formattedDict)
             session['qNumber'] = 1
+            newResponse = Responses(response=str(dict), formName=surveyForm.name, formId = formId)
+
+            db.session.add(newResponse)
+            db.session.commit()
+
             return redirect(url_for('allSurveys'))
 
         print(session['qNumber'])
-        surveyForm = SurveyForm.query.get_or_404(formId)
 
         question = allQuestions[(session['qNumber'])]
         print(question)
  
-    return render_template('designForm.html', question=question, currentQuestion=currentQuestion, allQuestions=allQuestions, percentage=percentage, title=surveyForm.name)
+    return render_template('designForm.html', question=question, currentQuestion=currentQuestion, allQuestions=allQuestions, percentage=percentage, title=surveyForm.name, formId=formId)
 
 @app.route('/report', methods=['GET','POST'])
 def report():

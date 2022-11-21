@@ -22,11 +22,11 @@
 
     <nav class="navbar navbar-expand navbar-light bg-transparent">
         <div class="nav navbar-nav" style="display:flex; justify-content: space-between; width: 100%;">
-            <a class="nav-item nav-link active" href='{{url_for("reverseForm")}}' aria-current="page">
+            <a class="nav-item nav-link active" href='{{url_for("reverseForm", formId=formId)}}' aria-current="page">
               Back
               <span class="visually-hidden">(current)</span></a>
             <a href='{{url_for("landing")}}' class="nav-item nav-link" >{{title}}</a>
-            <a class="nav-item nav-link" href='{{url_for("restartForm")}}'>Restart!</a>
+            <a class="nav-item nav-link" href='{{url_for("restartForm", formId=formId)}}'>Restart!</a>
         </div>
     </nav> 
 

@@ -18,14 +18,17 @@
     {% for form in forms %}
     <div class="col-md-4">
         <a href='{{url_for("adminform", formId=form.id)}}' style="text-decoration: none; color: black;">
-
-        <div data-aos="fade-up" class="dashboard-item" style="background-color: white;">
-            <div style="display: flex;">
-                <h6>✅</h6>
-                <h6 style="font-weight: bold; color: black;">{{form.name}}</h6>
-            </div>
+            
+            <div data-aos="fade-up" class="dashboard-item" style="background-color: white;">
+                <h6 class="dashboard-item-text">{{form.consumer}}</h6>
+                <div style="display: flex;">
+                    <h6>✅</h6>
+                    <h6 style="font-weight: bold; color: black;">{{form.name}}</h6>
+                </div>
             <h6 class="text-muted">{{form.description}}</h6>
-            <h6 class="dashboard-item-text">{{form.consumer}}</h6>
+            <a href='{{url_for("deleteForm", formId = form.id)}}'>
+                <button class="pill-button">Delete</button>
+            </a>
         </div>
         </a>
     </div>

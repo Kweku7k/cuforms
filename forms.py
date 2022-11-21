@@ -23,11 +23,11 @@ class NewForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Name', validators=[DataRequired()])
     consumer = StringField('consumer')
-    # consumer = RadioField('For', choices=[('None', 'None'),('Alumni', 'Alumni'), ('Student', 'Student'), ('Staff', 'Staff'), ('None', 'None')])
     submit = SubmitField('Submit')
 
 class NewQuestion(FlaskForm):
     question = StringField('Question', validators=[DataRequired()])
+    questionUpdate = StringField('QuestionUpdate')
     submit = SubmitField('Submit')
 
 

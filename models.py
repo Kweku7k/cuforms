@@ -66,3 +66,12 @@ class Section(db.Model):
 
     def __repr__(self):
         return f"User('{self.lastname}', '{self.email}', '{self.phone}')"
+
+class Responses(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    formName = db.Column(db.String())
+    formId = db.Column(db.String())
+    response = db.Column(db.String())
+
+    def __repr__(self):
+        return f"Response('{self.id}', '{self.formName}')"

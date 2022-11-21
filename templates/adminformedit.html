@@ -2,11 +2,9 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}">
-
 {% endblock %}
 
 {% block body %}
-
 
 <h4>{{formtitle}}</h4>
 <h6>{{survey.description}}</h6>
@@ -17,7 +15,6 @@
     {{form.hidden_tag()}}
     <div class="flexrow mb-3">
       {{form.question(class="newInputForm", placeholder="Add a new question")}}
-      <!-- <input class="newInputForm" type="text" value="" placeholder="New Question"> -->
       {{form.submit (class="button", style="margin-left: 2vw;")}}
     </div>
   </form>
@@ -27,9 +24,16 @@
   <div class="newInputForm mb-3">
     <div class="flexrow">
       <h6 class="text-muted">Question {{loop.index}}</h6>
-      <h6 style="color: #2f9921;">update</h6>
+      <!-- <a href="">
+        <h6 style="color: #2f9921;">update</h6>
+      </a> -->
+      <a href="{{url_for("deleteQuestion", question=question.id )}}">
+        <h6 style="color: #992621;">delete</h6>
+      </a>
     </div>
       <input class="inputValue" type="text" value="{{question.question}}">
+
+      <!-- {{form.questionUpdate (class="inputValue", value="{{question.question}}" )}} -->
       <div class="mb-3">
         <!-- <label for="" class="form-label">City</label> -->
         <!-- <select class="form-select form-select-lg" style="font-size: 10px;" name="" id="">

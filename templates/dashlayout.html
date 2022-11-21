@@ -27,24 +27,28 @@
       AOS.init();
     </script>
 
-      <nav class="navbar navbar-expand-lg sticky-top" style="background: #fff; ">
+      <nav class="navbar navbar-expand-lg sticky-top" style="background: #fff;">
         <div class="container-fluid">
           <a class="navbar-brand">
-            <!-- <img src="https://www.central.edu.gh/virgin/images/Central-Uni-logo.png" alt="" width="15%"> -->
             <h4>central.edu.gh</h4>
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon">
+              <ul>
+                <li>Test</li>
+              </ul>
+            </span>
+
+            
           </button>
-          <div class="collapse navbar-collapse me-2" id="navbarSupportedContent" style="width: 100%;">
+          <div class="collapse navbar-collapse me-2" id="navbarSupportedContent" style="width: fit-content; margin-left: auto; display: flex; justify-content: space-between;">
             
+            <ul>
+            </ul>
+
             <form class="d-flex " role="search" >
-
-            
-              <input class="form-control " type="search" name='searched' placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-
+              <input class="form-control " type="search" name='searched' placeholder="Search" aria-label="Search" style="width: 55vw">
+              <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
             </form>
             <button class="btn" style="color: #fff; background: #992621; border: none; margin-left: 3px;" type="logout">
               <a href="#" style="text-decoration: none; color: #fff;">Logout</a>
@@ -53,6 +57,36 @@
           </div>
         </div>
       </nav>
+<!-- 
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#" style="font-weight: bold;">central.edu.gh</a>
+          <button class="navbar-toggler hidden-lg-up" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+              aria-expanded="false" aria-label="Toggle navigation"></button>
+          <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Students</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Staff</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Alumni</a>
+              </li>
+            </ul>
+            
+            <div style="width: fit-content;">
+                <button class="pill-button">Contact Us!</button>
+              </div>
+          </div>
+        </div>
+      </nav> -->
+
+
+
+
 
 
 
@@ -121,12 +155,12 @@
                     {% if title == "addalumni" %}
                       <div class="side-nav-button-active">
                         <i class='bx bx-add-to-queue icon' ></i>
-                        <a href="/addalumni" class="side-nav-button-text">Add New Form</a>
+                        <a href="/newForm" class="side-nav-button-text">Add New Form</a>
                       </div>
                       {% else %}
                       <div class="side-nav-button">
                         <i class='bx bx-add-to-queue icon' ></i>
-                        <a href="/addalumni" class="side-nav-button-text">Add New Form</a>
+                        <a href="/newForm" class="side-nav-button-text">Add New Form</a>
                       </div>
                     
                     {% endif %}

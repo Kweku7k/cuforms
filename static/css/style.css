@@ -36,7 +36,8 @@ body{
 .loginClass{
     /* background-image: url("../img/bg.png"); */
     background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgb(91, 0, 247) 0%, rgb(6, 52, 70) 47%, rgb(0, 103, 118) 100%);
+    /* background: linear-gradient(90deg, rgb(91, 0, 247) 0%, rgb(6, 52, 70) 47%, rgb(0, 103, 118) 100%); */
+    background: linear-gradient(90deg, rgb(247, 0, 82) 0%, rgb(48, 6, 70) 47%, rgb(0, 103, 118) 100%);
 	animation: gradient 15s ease infinite;
     background-position: center;
     background-repeat: no-repeat; 
@@ -113,7 +114,7 @@ section{
 }
 
 .pill-button{
-    background-color: #302cff;
+    background-color: #992621;
     border: none;
     color: white;
     border-radius:10px ;
@@ -278,7 +279,8 @@ border-radius:10px;
     /* background: rgb(42,0,255);
     background: linear-gradient(90deg, rgb(128, 106, 241) 0%, rgb(219, 86, 86) 47%, rgba(21,250,255,1) 100%); */
     background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(203, 240, 255) 47%, rgb(194, 255, 243) 100%);
+    /* background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(203, 240, 255) 47%, rgb(194, 255, 243) 100%); */
+    background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(236, 203, 255) 47%, rgb(255, 194, 246) 100%);
     /* object-fit:scale-down; */
     display: flex;
     align-items: center;
